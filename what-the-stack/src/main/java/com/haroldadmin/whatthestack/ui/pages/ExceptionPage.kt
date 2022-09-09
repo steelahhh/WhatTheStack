@@ -27,8 +27,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.accompanist.insets.navigationBarsHeight
-import com.google.accompanist.insets.statusBarsHeight
 import com.haroldadmin.whatthestack.R
 import com.haroldadmin.whatthestack.generateStackoverflowSearchUrl
 import com.haroldadmin.whatthestack.ui.components.OutlinedIconButton
@@ -47,8 +45,10 @@ fun ExceptionPage(type: String, message: String, stackTrace: String) {
   val snackbarMessage = stringResource(id = R.string.copied_message)
 
   Scaffold(scaffoldState = scaffoldState) {
-    Column(modifier = Modifier.padding(horizontal = 16.dp).verticalScroll(rememberScrollState())) {
-      Spacer(modifier = Modifier.statusBarsHeight(additional = 8.dp))
+    Column(
+      modifier =
+        Modifier.padding(horizontal = 16.dp).verticalScroll(rememberScrollState()).padding(it)
+    ) {
       PageHeader()
       ExceptionDetails(type = type, message = message, modifier = Modifier.padding(vertical = 8.dp))
       ExceptionOptions(
@@ -92,7 +92,6 @@ fun ExceptionPage(type: String, message: String, stackTrace: String) {
         }
       )
       Stacktrace(stackTrace = stackTrace, modifier = Modifier.padding(top = 8.dp))
-      Spacer(modifier = Modifier.navigationBarsHeight(additional = 8.dp))
     }
   }
 }
