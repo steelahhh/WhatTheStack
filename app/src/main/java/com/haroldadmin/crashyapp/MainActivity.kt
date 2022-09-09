@@ -8,12 +8,8 @@ import com.haroldadmin.crashyapp.ui.theme.CrashyAppTheme
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            CrashyAppTheme {
-                HomePage()
-            }
-        }
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent { CrashyAppTheme { HomePage() } }
+  }
 }
