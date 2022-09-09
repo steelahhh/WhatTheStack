@@ -1,38 +1,32 @@
 package com.haroldadmin.whatthestack.ui.theme
 
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorPalette =
-  darkColors(
-    primary = Color(0xffd32f2f),
-    primaryVariant = Color(0xffff6659),
-    secondary = Color(0xff616161),
-    secondaryVariant = Color(0xff373737),
-  )
-
-private val LightColorPalette =
-  lightColors(
-    primary = Color(0xffd32f2f),
-    primaryVariant = Color(0xff9a0007),
-    secondary = Color(0xff616161),
-    secondaryVariant = Color(0x33373737),
-  )
-
-internal val SystemBarsColor = Color(0x33373737)
+internal val StackTraceColor = Color(0xFFe06b75)
+internal val StackTraceContainerColor = Color(0xFF292c34)
 
 @Composable
-fun WhatTheStackTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-  val colors =
-    if (darkTheme) {
-      DarkColorPalette
-    } else {
-      LightColorPalette
+internal fun WhatTheStackTheme(
+  darkTheme: Boolean = isSystemInDarkTheme(),
+  content: @Composable () -> Unit
+) {
+  val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+  val colorScheme =
+    when {
+      dynamicColor && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
+      dynamicColor && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
+      darkTheme -> darkColorScheme()
+      else -> lightColorScheme()
     }
 
-  MaterialTheme(colors = colors, content = content)
+  MaterialTheme(colorScheme = colorScheme, content = content)
 }
